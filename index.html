@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tes Role & Jabatan Komunitas Gak Waras</title>
+  <title>Tes Role Komunitas Gak Waras</title>
   <style>
     :root {
-      --bg-color: #0b0f19;
-      --card-bg: #151e2e;
+      --bg-color: #080d1a;
+      --card-bg: rgba(21, 30, 46, 0.95);
       --accent: #ef4444;
+      --accent-glow: rgba(239, 68, 68, 0.45);
       --accent-hover: #dc2626;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --border: #243247;
       --gold: #fbbf24;
+      --cyan: #38bdf8;
     }
 
     * {
@@ -24,50 +26,63 @@
     }
 
     body {
-      background-color: var(--bg-color);
+      background: radial-gradient(circle at top center, #1e1b4b, var(--bg-color) 70%);
       color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px 12px;
+      padding: 24px 12px;
     }
 
     .container {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 20px;
       width: 100%;
       max-width: 520px;
-      padding: 24px 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      padding: 28px 22px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.15);
+      backdrop-filter: blur(8px);
+      animation: containerAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes containerAppear {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     h1 {
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       text-align: center;
       margin-bottom: 6px;
-      color: #f87171;
+      background: linear-gradient(135deg, #f87171, #f43f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      font-weight: 900;
     }
 
     p.subtitle {
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--text-muted);
       margin-bottom: 24px;
     }
 
     .section-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: bold;
-      color: #38bdf8;
+      color: var(--cyan);
       border-bottom: 1px solid var(--border);
       padding-bottom: 6px;
       margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .form-group {
@@ -84,32 +99,38 @@
 
     input[type="text"], select, input[type="file"] {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 12px 14px;
+      border-radius: 10px;
       border: 1px solid var(--border);
       background-color: #0b0f19;
       color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.25s ease;
     }
 
     input[type="text"]:focus, select:focus {
       border-color: #f87171;
+      box-shadow: 0 0 10px rgba(248, 113, 113, 0.25);
     }
 
-    /* Quiz Radio Options */
+    /* Quiz Card & Options */
     .quiz-card {
       background: #0b0f19;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 14px;
       margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .quiz-card:hover {
+      border-color: #334155;
     }
 
     .quiz-card p.q-text {
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.88rem;
+      font-weight: 700;
       color: #f1f5f9;
       margin-bottom: 10px;
     }
@@ -118,24 +139,27 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: #94a3b8;
       background: #151e2e;
       border: 1px solid transparent;
       padding: 10px 12px;
-      border-radius: 6px;
+      border-radius: 8px;
       margin-bottom: 6px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      user-select: none;
     }
 
     .radio-label:hover {
       background: #1e293b;
       color: #fff;
+      transform: translateX(3px);
     }
 
     .radio-label input[type="radio"] {
-      accent-color: #ef4444;
+      accent-color: var(--accent);
+      cursor: pointer;
     }
 
     .radio-label:has(input[type="radio"]:checked) {
@@ -143,34 +167,39 @@
       background: rgba(239, 68, 68, 0.12);
       color: #fff;
       font-weight: 600;
+      transform: scale(1.01);
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.15);
     }
 
     .notice-verify {
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       color: var(--gold);
-      margin-top: 4px;
+      margin-top: 5px;
     }
 
     button.btn-submit {
       width: 100%;
       padding: 14px;
-      background: var(--accent);
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: #fff;
       font-size: 1rem;
       font-weight: bold;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s, transform 0.1s;
+      margin-top: 12px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px var(--accent-glow);
     }
 
     button.btn-submit:hover {
-      background: var(--accent-hover);
+      background: linear-gradient(135deg, #f87171, #ef4444);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+      transform: translateY(-1px);
     }
 
     button.btn-submit:active {
-      transform: scale(0.98);
+      transform: translateY(1px);
     }
 
     /* Loading Spinner */
@@ -178,51 +207,55 @@
       display: none;
       text-align: center;
       margin-top: 24px;
+      padding: 20px;
     }
 
     .spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid #334155;
+      width: 48px;
+      height: 48px;
+      border: 4px solid #1e293b;
       border-top-color: #ef4444;
+      border-right-color: #f59e0b;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
+      animation: spin 0.75s linear infinite;
+      margin: 0 auto 14px;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
 
-    /* Result Card */
+    /* Result Box */
     .result-box {
       display: none;
       background: #0b0f19;
-      border: 1px solid #f87171;
-      border-radius: 12px;
-      padding: 22px 18px;
+      border: 1px solid rgba(248, 113, 113, 0.3);
+      border-radius: 16px;
+      padding: 24px 18px;
       text-align: center;
       margin-top: 20px;
-      animation: fadeIn 0.4s ease;
+      animation: popIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .profile-preview {
-      width: 84px;
-      height: 84px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #f87171;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 15px rgba(248, 113, 113, 0.35);
     }
 
     .result-name {
-      font-size: 1.25rem;
-      font-weight: bold;
+      font-size: 1.3rem;
+      font-weight: 800;
       color: #fff;
     }
 
@@ -230,11 +263,12 @@
       display: inline-block;
       font-size: 0.75rem;
       text-transform: uppercase;
+      font-weight: 700;
       background: #334155;
-      padding: 3px 10px;
-      border-radius: 4px;
+      padding: 3px 12px;
+      border-radius: 999px;
       color: #cbd5e1;
-      margin-top: 4px;
+      margin-top: 5px;
     }
 
     /* Chart Layout */
@@ -245,24 +279,24 @@
 
     .chart-title {
       font-size: 0.88rem;
-      font-weight: bold;
+      font-weight: 800;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-align: center;
       letter-spacing: 0.5px;
     }
 
     .bar-item {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .bar-header {
       display: flex;
       justify-content: space-between;
-      font-size: 0.82rem;
+      font-size: 0.83rem;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .bar-role-name {
@@ -271,14 +305,16 @@
 
     .bar-role-pct {
       color: var(--gold);
+      font-weight: 700;
     }
 
     .bar-track {
       background: #1e293b;
-      height: 12px;
+      height: 14px;
       border-radius: 999px;
       overflow: hidden;
       width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .bar-fill {
@@ -286,40 +322,43 @@
       border-radius: 999px;
       width: 0%;
       background: linear-gradient(90deg, #ef4444, #f59e0b);
-      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .bar-fill.top-rank {
       background: linear-gradient(90deg, #f59e0b, #eab308);
-      box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.5);
     }
 
     .btn-reset {
-      margin-top: 20px;
+      margin-top: 22px;
       background: transparent;
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 8px 18px;
-      border-radius: 6px;
+      padding: 9px 20px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
     }
 
     .btn-reset:hover {
       background: #1e293b;
       color: #fff;
+      border-color: #475569;
     }
 
     /* Disclaimer */
     .disclaimer {
-      margin-top: 22px;
+      margin-top: 24px;
       padding: 12px;
       background: rgba(239, 68, 68, 0.08);
       border-left: 4px solid var(--accent);
-      border-radius: 4px;
+      border-radius: 6px;
       font-size: 0.72rem;
       color: #94a3b8;
-      line-height: 1.4;
+      line-height: 1.45;
     }
   </style>
 </head>
@@ -331,15 +370,15 @@
 
     <form id="quizForm">
       
-      <div class="section-title">1. Data Anggota</div>
+      <div class="section-title">👤 1. Data Anggota</div>
       
       <div class="form-group">
-        <label for="username">Nama / Username Facebook</label>
-        <input type="text" id="username" placeholder="Contoh: Budi Santoso" required>
+        <label for="username">Nama Kalian</label>
+        <input type="text" id="username" placeholder="Masukkan nama panggilan / asli kalian..." required autocomplete="off">
       </div>
 
       <div class="form-group">
-        <label for="jabatan">Jabatan di Grup</label>
+        <label for="jabatan">Jabatan di Komunitas</label>
         <select id="jabatan">
           <option value="Member">Member</option>
           <option value="Admin">Admin</option>
@@ -351,11 +390,25 @@
         <input type="file" id="photo" accept="image/*">
       </div>
 
-      <div class="section-title" style="margin-top: 24px;">2. Pertanyaan Karakter</div>
+      <div class="section-title" style="margin-top: 24px;">🧠 2. Pertanyaan Karakter & Kewarasan</div>
 
-      <!-- Q1 -->
+      <!-- Pertanyaan Baru: Pekerjaan -->
       <div class="quiz-card">
-        <p class="q-text">1. Sudah berapa lama bergabung?</p>
+        <p class="q-text">1. Apa pekerjaan utama kalian saat ini?</p>
+        <label class="radio-label">
+          <input type="radio" name="job" value="A" required> A. Nganggur
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="job" value="B"> B. Freelance
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="job" value="C"> C. Bekerja sebagai WNI
+        </label>
+      </div>
+
+      <!-- Q2: Lama Bergabung -->
+      <div class="quiz-card">
+        <p class="q-text">2. Sudah berapa lama kalian bergabung?</p>
         <label class="radio-label">
           <input type="radio" name="q1" value="A" required> A. Barusan
         </label>
@@ -367,9 +420,9 @@
         </label>
       </div>
 
-      <!-- Q2 -->
+      <!-- Q3: Nimbrung -->
       <div class="quiz-card">
-        <p class="q-text">2. Seberapa sering anda nimbrung?</p>
+        <p class="q-text">3. Seberapa sering kalian nimbrung?</p>
         <label class="radio-label">
           <input type="radio" name="q2" value="A" required> A. Sering
         </label>
@@ -381,9 +434,9 @@
         </label>
       </div>
 
-      <!-- Q3 -->
+      <!-- Q4: Gooning -->
       <div class="quiz-card">
-        <p class="q-text">3. Seberapa gooning anda?</p>
+        <p class="q-text">4. Seberapa gooning kalian?</p>
         <label class="radio-label">
           <input type="radio" name="q3" value="A" required> A. Sangat gooning
         </label>
@@ -395,9 +448,9 @@
         </label>
       </div>
 
-      <!-- Q4 -->
+      <!-- Q5: Rasis -->
       <div class="quiz-card">
-        <p class="q-text">4. Seberapa rasis anda?</p>
+        <p class="q-text">5. Seberapa rasis kalian?</p>
         <label class="radio-label">
           <input type="radio" name="q4" value="A" required> A. Saya sangat rasis
         </label>
@@ -409,9 +462,9 @@
         </label>
       </div>
 
-      <!-- Q5 -->
+      <!-- Q6: Politik -->
       <div class="quiz-card">
-        <p class="q-text">5. Pendukung Prabowo?</p>
+        <p class="q-text">6. Pendukung Prabowo?</p>
         <label class="radio-label">
           <input type="radio" name="q5" value="A" required> A. Iya dong
         </label>
@@ -423,9 +476,9 @@
         </label>
       </div>
 
-      <!-- Q6 Extra: Sound Horeg -->
+      <!-- Q7: Sound Horeg -->
       <div class="quiz-card">
-        <p class="q-text">6. Tanggapan tentang Sound Horeg keliling kampung?</p>
+        <p class="q-text">7. Tanggapan tentang Sound Horeg keliling kampung?</p>
         <label class="radio-label">
           <input type="radio" name="q6" value="A" required> A. Getarkan genteng dan kaca warga sampai ambyar!
         </label>
@@ -437,21 +490,21 @@
         </label>
       </div>
 
-      <!-- Q7 Extra: Loyalitas -->
+      <!-- Q8: Kegiatan Malam -->
       <div class="quiz-card">
-        <p class="q-text">7. Hubungan anda dengan rezim & penguasa?</p>
+        <p class="q-text">8. Kegiatan utama saat tengah malam?</p>
         <label class="radio-label">
-          <input type="radio" name="q7" value="A" required> A. Siap jadi kacung komdigi & penjilat sejati
+          <input type="radio" name="q7" value="A" required> A. Overthinking sambil scroll meme gak jelas
         </label>
         <label class="radio-label">
-          <input type="radio" name="q7" value="B"> B. Ingin mengkudeta tahta secara diam-diam
+          <input type="radio" name="q7" value="B"> B. Jadi budak komdigi & penjaga server
         </label>
         <label class="radio-label">
-          <input type="radio" name="q7" value="C"> C. Cuma rakyat jelatah yang kena fitnah PKI
+          <input type="radio" name="q7" value="C"> C. Nyusun rencana konspirasi kudeta admin
         </label>
       </div>
 
-      <div class="section-title" style="margin-top: 24px;">3. Verifikasi Keamanan</div>
+      <div class="section-title" style="margin-top: 24px;">🔐 3. Verifikasi Keamanan</div>
 
       <!-- Verifikasi 2 Langkah -->
       <div class="form-group">
@@ -460,70 +513,73 @@
         <p class="notice-verify">*Wajib ketik persis: <strong>Owner ganteng</strong></p>
       </div>
 
-      <button type="submit" class="btn-submit">Analisis Role Saya</button>
+      <button type="submit" class="btn-submit">⚡ Analisis Role & Jabatan</button>
     </form>
 
     <!-- Loading -->
     <div id="loadingBox" class="loading">
       <div class="spinner"></div>
-      <p style="font-size: 0.85rem; color: #94a3b8;">Menganalisis kadar kewarasan & persentase role...</p>
+      <p id="loadingStatus" style="font-size: 0.85rem; color: #94a3b8;">Melacak jejak digital...</p>
     </div>
 
     <!-- Output Hasil -->
     <div id="resultBox" class="result-box">
       <img id="resPhoto" class="profile-preview" src="" alt="Foto">
-      <div id="resName" class="result-name">Nama Kamu</div>
+      <div id="resName" class="result-name">Nama Kalian</div>
       <span id="resJabatan" class="result-jabatan">Member</span>
 
       <!-- Grafik Bar -->
       <div class="chart-container">
-        <div class="chart-title">📊 Grafik Kecocokan Role Sejati Kamu</div>
+        <div class="chart-title">📊 Grafik Kecocokan Role Sejati</div>
         <div id="barsWrapper"></div>
       </div>
 
-      <button type="button" class="btn-reset" onclick="resetForm()">Coba Ulangi</button>
+      <button type="button" class="btn-reset" onclick="resetForm()">🔄 Coba Ulangi</button>
     </div>
 
     <!-- Disclaimer Troll -->
     <div class="disclaimer">
-      ⚠️ <strong>PERINGATAN:</strong> Website ini hanya lelucon / troll komunitas semata dan tidak dianggap serius. Data Anda tidak dikirim ke server mana pun (berjalan 100% lokal di browser Anda).
+      ⚠️ <strong>PERINGATAN:</strong> Website ini hanya lelucon / troll komunitas semata dan tidak dianggap serius. Data kalian tidak dikirim ke server mana pun (berjalan 100% lokal di browser).
     </div>
   </div>
 
   <script>
-    // Seluruh Daftar Role
-    const allRoleKeys = [
-      "Koruptor", "Pedo", "Jomok", "Rasis", "Gay", "Hitam",
+    // Pool Role Umum (Penguasa sebenarnya sengaja dikunci & tidak ada di daftar publik)
+    const baseRolesPool = [
+      "Koruptor", "Pedo", "Pedo sialan", "Jomok", "Rasis", "Gay", "Hitam",
       "Pendukung Prabowo", "Antek antek prabowo", "Admin berpendidikan",
       "Gooner berpengalaman", "Bandar bokep", "Gooner", "Member jelatah",
-      "Penguasa sebenarnya", "Budak owner", "Budak Prabowo", "Budak komdigi",
-      "Budak bahlil", "Pasangan Teddy", "Gembel", "Artist terkenal",
-      "Member abadi", "Tukang rasis", "PKI", "Keturunan PKI", "Hama",
-      "Operator sound horeg", "Panitia sound horeg", "Pejabat bersih",
-      "Termul", "Pendukung Anies", "Ternak Anies", "Role Plenger"
+      "Budak owner", "Budak Prabowo", "Budak komdigi", "Budak bahlil",
+      "Pasangan Teddy", "Gembel", "Artist terkenal", "Member abadi",
+      "Tukang rasis", "PKI", "Keturunan PKI", "Hama", "Operator sound horeg",
+      "Panitia sound horeg", "Pejabat bersih", "Termul", "Pendukung Anies",
+      "Ternak Anies", "Natuna", "Gooning on Horse"
     ];
 
     const form = document.getElementById('quizForm');
     const verifyInput = document.getElementById('verify');
     const loadingBox = document.getElementById('loadingBox');
+    const loadingStatus = document.getElementById('loadingStatus');
     const resultBox = document.getElementById('resultBox');
     const barsWrapper = document.getElementById('barsWrapper');
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      // Cek Verifikasi 2 Langkah
+      // Pengecekan Verifikasi 2 Langkah
       if (verifyInput.value.trim() !== "Owner ganteng") {
-        alert("VERIFIKASI GAGAL!\nKamu harus mengetik persis: 'Owner ganteng' untuk melanjutkan.");
+        alert("VERIFIKASI GAGAL!\nKalian wajib mengetik persis 'Owner ganteng' untuk melanjutkan.");
         verifyInput.focus();
         return;
       }
 
-      const name = document.getElementById('username').value.trim();
+      const rawName = document.getElementById('username').value.trim();
+      const cleanName = rawName.toLowerCase();
       const jabatan = document.getElementById('jabatan').value;
       const photoInput = document.getElementById('photo');
 
-      // Ambil Jawaban Kuis
+      // Ambil seluruh jawaban kuis
+      const job = document.querySelector('input[name="job"]:checked').value;
       const q1 = document.querySelector('input[name="q1"]:checked').value;
       const q2 = document.querySelector('input[name="q2"]:checked').value;
       const q3 = document.querySelector('input[name="q3"]:checked').value;
@@ -532,93 +588,155 @@
       const q6 = document.querySelector('input[name="q6"]:checked').value;
       const q7 = document.querySelector('input[name="q7"]:checked').value;
 
-      // Inisialisasi Skor
-      const scores = {};
-      allRoleKeys.forEach(role => {
-        // Beri sedikit random variasi awal (1 - 5) agar tetap unik
-        scores[role] = Math.floor(Math.random() * 5) + 1;
-      });
+      // ==========================================
+      // TARGET ALGORITMA & EASTER EGGS
+      // ==========================================
+      const isOwner = cleanName.includes("zhee") || cleanName.includes("zainal");
+      const isKeinan = cleanName.includes("keinan");
+      const isPedoTarget = cleanName.includes("putra") || cleanName.includes("ayn") || cleanName.includes("ayano");
+      const isAbadiTarget = cleanName.includes("nurman") || cleanName.includes("grand");
 
-      // Penyesuaian Jabatan
-      const plengerName = (jabatan === "Admin") ? "Admin plenger" : "Member plenger";
-      scores["Role Plenger"] = 0; // alias untuk diubah namanya nanti
+      let finalTop5 = [];
 
-      if (jabatan === "Admin") {
-        scores["Admin berpendidikan"] += 12;
-        scores["Role Plenger"] += 8;
-        scores["Penguasa sebenarnya"] += 10;
+      if (isOwner) {
+        // Zhee / Zainal -> Mutlak Penguasa Sebenarnya (#1)
+        finalTop5 = [
+          { role: "Penguasa sebenarnya", pct: 99 },
+          { role: "Admin berpendidikan", pct: 88 },
+          { role: "Artist terkenal", pct: 76 },
+          { role: "Pejabat bersih", pct: 64 },
+          { role: "Member abadi", pct: 52 }
+        ];
+      } else if (isKeinan) {
+        // Keinan -> Urutan paten troll
+        finalTop5 = [
+          { role: "Rasis", pct: 97 },
+          { role: "Pendukung Prabowo", pct: 89 },
+          { role: "Natuna", pct: 78 },
+          { role: "Koruptor", pct: 66 },
+          { role: "Gooning on Horse", pct: 54 }
+        ];
       } else {
-        scores["Member jelatah"] += 12;
-        scores["Member abadi"] += 8;
-        scores["Role Plenger"] += 8;
+        // Algoritma Dinamis & Super Acak untuk lainnya
+        // PENGUASA SEBENARNYA DIKUNCI / TIDAK PERNAH BISA DIDAPATKAN OLEH SELAIN OWNER
+        const plengerRole = (jabatan === "Admin") ? "Admin plenger" : "Member plenger";
+        
+        let pool = [...baseRolesPool, plengerRole];
+        let scores = {};
+
+        // Berikan entropi / keacakan awal tinggi (10 s.d 40 poin)
+        pool.forEach(r => {
+          scores[r] = Math.floor(Math.random() * 30) + 10;
+        });
+
+        // 1. Bobot Pekerjaan
+        if (job === "A") { scores["Gembel"] += 35; scores["Hama"] += 25; scores["Member jelatah"] += 20; }
+        if (job === "B") { scores["Gooner berpengalaman"] += 30; scores["Bandar bokep"] += 25; scores["Artist terkenal"] += 20; }
+        if (job === "C") { scores["Pejabat bersih"] += 30; scores["Koruptor"] += 25; scores["Budak komdigi"] += 20; }
+
+        // 2. Lama Bergabung
+        if (q1 === "A") { scores["Member jelatah"] += 25; scores["Termul"] += 25; }
+        if (q1 === "B") { scores[plengerRole] += 25; scores["Budak owner"] += 20; }
+        if (q1 === "C") { scores["Member abadi"] += 35; scores["Koruptor"] += 20; }
+
+        // 3. Nimbrung
+        if (q2 === "A") { scores["Artist terkenal"] += 25; scores["Budak owner"] += 20; }
+        if (q2 === "B") { scores["Hama"] += 25; scores["Gembel"] += 20; }
+        if (q2 === "C") { scores["Bandar bokep"] += 40; scores["Gooner"] += 30; scores["Gooner berpengalaman"] += 25; }
+
+        // 4. Gooning
+        if (q3 === "A") { scores["Gooner"] += 35; scores["Pedo"] += 20; scores["Jomok"] += 20; }
+        if (q3 === "B") { scores["Gooner berpengalaman"] += 35; scores["Gooning on Horse"] += 25; }
+        if (q3 === "C") { scores["Gooner berpengalaman"] += 25; scores["Gay"] += 20; }
+
+        // 5. Rasis
+        if (q4 === "A") { scores["Rasis"] += 45; scores["Tukang rasis"] += 40; scores["Hitam"] += 30; }
+        if (q4 === "B") { scores["Termul"] += 25; scores["Pejabat bersih"] += 20; }
+        if (q4 === "C") { scores["Tukang rasis"] += 35; scores["PKI"] += 25; scores["Keturunan PKI"] += 20; }
+
+        // 6. Politik
+        if (q5 === "A") { scores["Pendukung Prabowo"] += 45; scores["Antek antek prabowo"] += 40; scores["Budak Prabowo"] += 35; }
+        if (q5 === "B") { scores["Budak bahlil"] += 30; scores["Pasangan Teddy"] += 25; scores["Budak komdigi"] += 25; }
+        if (q5 === "C") { scores["Pendukung Anies"] += 45; scores["Ternak Anies"] += 40; }
+
+        // 7. Sound Horeg
+        if (q6 === "A") { scores["Operator sound horeg"] += 40; scores["Panitia sound horeg"] += 35; }
+        if (q6 === "B") { scores["Jomok"] += 25; scores["Gay"] += 20; }
+        if (q6 === "C") { scores["Pejabat bersih"] += 25; scores["Natuna"] += 20; }
+
+        // 8. Kegiatan Malam
+        if (q7 === "A") { scores["Hama"] += 25; scores["Gembel"] += 20; }
+        if (q7 === "B") { scores["Budak komdigi"] += 35; scores["Budak owner"] += 30; }
+        if (q7 === "C") { scores["PKI"] += 35; scores["Koruptor"] += 30; }
+
+        // Jabatan Booster
+        if (jabatan === "Admin") {
+          scores["Admin berpendidikan"] += 30;
+          scores[plengerRole] += 20;
+        }
+
+        // Urutkan kandidat role
+        let sorted = Object.keys(scores)
+          .map(r => ({ role: r, score: scores[r] }))
+          .sort((a, b) => b.score - a.score);
+
+        // Ambil 5 teratas
+        let picked = sorted.slice(0, 5).map(x => x.role);
+
+        // Target: Putra/Ayn/Ayano dijamin dapat "Pedo sialan"
+        if (isPedoTarget) {
+          if (!picked.includes("Pedo sialan")) {
+            // Selipkan di posisi acak (antara index 0 s/d 3)
+            const targetPos = Math.floor(Math.random() * 4);
+            picked.splice(targetPos, 0, "Pedo sialan");
+            picked.pop(); // buang nomor 6
+          }
+        }
+
+        // Target: Nurman/Grand dijamin dapat "Member abadi" (posisi acak tidak harus #1)
+        if (isAbadiTarget) {
+          if (!picked.includes("Member abadi")) {
+            const targetPos = Math.floor(Math.random() * 4) + 1; // index 1 s/d 4
+            picked.splice(targetPos, 0, "Member abadi");
+            picked.pop();
+          }
+        }
+
+        // Generate persentase dramatis dengan variasi acak
+        const topVal = Math.floor(Math.random() * 6) + 93; // 93% - 98%
+        finalTop5 = [
+          { role: picked[0], pct: topVal },
+          { role: picked[1], pct: Math.max(78, Math.round(topVal * 0.86 - Math.random() * 4)) },
+          { role: picked[2], pct: Math.max(62, Math.round(topVal * 0.70 - Math.random() * 4)) },
+          { role: picked[3], pct: Math.max(48, Math.round(topVal * 0.53 - Math.random() * 4)) },
+          { role: picked[4], pct: Math.max(35, Math.round(topVal * 0.38 - Math.random() * 4)) }
+        ];
       }
 
-      // 1. Sudah berapa lama bergabung?
-      if (q1 === "A") { scores["Member jelatah"] += 15; scores["Hama"] += 12; scores["Termul"] += 10; }
-      if (q1 === "B") { scores["Gembel"] += 12; scores["Pejabat bersih"] += 10; }
-      if (q1 === "C") { scores["Member abadi"] += 18; scores["Penguasa sebenarnya"] += 12; scores["Koruptor"] += 10; }
-
-      // 2. Seberapa sering anda nimbrung?
-      if (q2 === "A") { scores["Artist terkenal"] += 18; scores["Penguasa sebenarnya"] += 10; scores["Budak owner"] += 10; }
-      if (q2 === "B") { scores["Hama"] += 14; scores["Member jelatah"] += 12; scores["Gembel"] += 10; }
-      if (q2 === "C") { scores["Bandar bokep"] += 20; scores["Gooner"] += 16; scores["Gooner berpengalaman"] += 15; }
-
-      // 3. Seberapa gooning anda?
-      if (q3 === "A") { scores["Gooner"] += 20; scores["Pedo"] += 12; scores["Jomok"] += 10; }
-      if (q3 === "B") { scores["Gooner berpengalaman"] += 20; scores["Bandar bokep"] += 15; scores["Gay"] += 10; }
-      if (q3 === "C") { scores["Gooner berpengalaman"] += 18; scores["Pasangan Teddy"] += 12; scores["Role Plenger"] += 10; }
-
-      // 4. Seberapa rasis anda?
-      if (q4 === "A") { scores["Rasis"] += 22; scores["Tukang rasis"] += 20; scores["Hitam"] += 14; }
-      if (q4 === "B") { scores["Pejabat bersih"] += 12; scores["Termul"] += 14; }
-      if (q4 === "C") { scores["Tukang rasis"] += 18; scores["PKI"] += 14; scores["Keturunan PKI"] += 12; }
-
-      // 5. Pendukung Prabowo?
-      if (q5 === "A") { scores["Pendukung Prabowo"] += 24; scores["Antek antek prabowo"] += 20; scores["Budak Prabowo"] += 18; }
-      if (q5 === "B") { scores["Budak bahlil"] += 18; scores["Pasangan Teddy"] += 15; scores["Budak komdigi"] += 14; }
-      if (q5 === "C") { scores["Pendukung Anies"] += 24; scores["Ternak Anies"] += 22; scores["Pejabat bersih"] += 10; }
-
-      // 6. Sound Horeg
-      if (q6 === "A") { scores["Operator sound horeg"] += 24; scores["Panitia sound horeg"] += 20; scores["Hama"] += 12; }
-      if (q6 === "B") { scores["Jomok"] += 16; scores["Gay"] += 14; scores["Panitia sound horeg"] += 10; }
-      if (q6 === "C") { scores["Pejabat bersih"] += 14; scores["Termul"] += 10; }
-
-      // 7. Loyalitas & Rezim
-      if (q7 === "A") { scores["Budak komdigi"] += 20; scores["Budak owner"] += 18; scores["Budak bahlil"] += 16; }
-      if (q7 === "B") { scores["Penguasa sebenarnya"] += 20; scores["Koruptor"] += 16; scores["PKI"] += 14; }
-      if (q7 === "C") { scores["Keturunan PKI"] += 20; scores["PKI"] += 16; scores["Member jelatah"] += 12; }
-
-      // Ganti nama "Role Plenger" menjadi Admin/Member plenger yang sesungguhnya
-      scores[plengerName] = scores["Role Plenger"];
-      delete scores["Role Plenger"];
-
-      // Ubah skor jadi array dan sort dari yang terbesar
-      const sortedRoles = Object.keys(scores)
-        .map(role => ({ role: role, score: scores[role] }))
-        .sort((a, b) => b.score - a.score);
-
-      // Ambil Top 5 Role
-      const top5 = sortedRoles.slice(0, 5);
-
-      // Skalakan skor agar menjadi persentase dramatis (98% turun bertahap ke ~40%)
-      const baseMax = 98 - Math.floor(Math.random() * 4); // 95 - 98%
-      top5.forEach((item, index) => {
-        if (index === 0) item.pct = baseMax;
-        else if (index === 1) item.pct = Math.round(baseMax * 0.84 - (Math.random() * 4));
-        else if (index === 2) item.pct = Math.round(baseMax * 0.68 - (Math.random() * 4));
-        else if (index === 3) item.pct = Math.round(baseMax * 0.52 - (Math.random() * 4));
-        else if (index === 4) item.pct = Math.round(baseMax * 0.38 - (Math.random() * 4));
-      });
-
-      // Tampilkan Loading
+      // Animasi Loading Bertahap
       form.style.display = 'none';
       loadingBox.style.display = 'block';
 
+      const loadingMessages = [
+        "Melacak jejak digital di grup...",
+        "Menghitung skor degradasi moral...",
+        "Mencocokkan database orang bermasalah...",
+        "Menetapkan vonis akhir..."
+      ];
+      let msgIndex = 0;
+      const msgInterval = setInterval(() => {
+        msgIndex++;
+        if (msgIndex < loadingMessages.length) {
+          loadingStatus.textContent = loadingMessages[msgIndex];
+        }
+      }, 350);
+
       setTimeout(() => {
+        clearInterval(msgInterval);
         loadingBox.style.display = 'none';
 
         // Set Info Pengguna
-        document.getElementById('resName').textContent = name;
+        document.getElementById('resName').textContent = rawName;
         document.getElementById('resJabatan').textContent = jabatan;
 
         // Pasang Foto Profil
@@ -629,12 +747,12 @@
           };
           reader.readAsDataURL(photoInput.files[0]);
         } else {
-          document.getElementById('resPhoto').src = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(name);
+          document.getElementById('resPhoto').src = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(rawName);
         }
 
-        // Render Bar Grafik
+        // Render Grafik Bar Animasi
         barsWrapper.innerHTML = '';
-        top5.forEach((item, idx) => {
+        finalTop5.forEach((item, idx) => {
           const isTop = idx === 0;
           const crown = isTop ? '👑 ' : `#${idx + 1} `;
 
@@ -651,21 +769,22 @@
           `;
           barsWrapper.appendChild(barItem);
 
-          // Animasi pengisian bar
+          // Animasi pergerakan bar
           setTimeout(() => {
-            const el = document.getElementById(`barFill${idx}`);
-            if (el) el.style.width = item.pct + '%';
-          }, 150 * (idx + 1));
+            const fillEl = document.getElementById(`barFill${idx}`);
+            if (fillEl) fillEl.style.width = item.pct + '%';
+          }, 120 * (idx + 1));
         });
 
         resultBox.style.display = 'block';
-      }, 1300);
+      }, 1500);
     });
 
     function resetForm() {
       resultBox.style.display = 'none';
       form.reset();
       form.style.display = 'block';
+      loadingStatus.textContent = "Melacak jejak digital...";
     }
   </script>
 </body>
