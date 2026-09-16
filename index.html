@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tes Role Komunitas Gak Waras</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #ef4444;
+      --accent-hover: #dc2626;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 480px;
+      padding: 28px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 8px;
+      color: #f87171;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #cbd5e1;
+    }
+
+    input[type="text"], select, input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background-color: #0f172a;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, select:focus {
+      border-color: #f87171;
+    }
+
+    .notice-verify {
+      font-size: 0.78rem;
+      color: #fbbf24;
+      margin-top: 4px;
+    }
+
+    button.btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    button.btn-submit:hover {
+      background: var(--accent-hover);
+    }
+
+    button.btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    /* Loading Spinner */
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #334155;
+      border-top-color: #ef4444;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Result Card */
+    .result-box {
+      display: none;
+      background: #0f172a;
+      border: 2px dashed #f87171;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-top: 24px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-preview {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f87171;
+      margin-bottom: 12px;
+    }
+
+    .result-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .result-jabatan {
+      display: inline-block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      background: #334155;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .role-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 16px;
+      text-transform: uppercase;
+    }
+
+    .result-role {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fbbf24;
+      margin-top: 4px;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+
+    .btn-reset {
+      margin-top: 18px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .btn-reset:hover {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      margin-top: 24px;
+      padding: 12px;
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Tes Role Komunitas</h1>
+    <p class="subtitle">Penilaian Role & Jabatan di Komunitas Gak Waras Selamanya</p>
+
+    <form id="quizForm">
+      <div class="form-group">
+        <label for="username">Nama / Username Facebook</label>
+        <input type="text" id="username" placeholder="Contoh: Rizal Ganteng" required>
+      </div>
+
+      <div class="form-group">
+        <label for="jabatan">Jabatan di Grup</label>
+        <select id="jabatan">
+          <option value="Member">Member</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="photo">Upload Foto Profil (Opsional)</label>
+        <input type="file" id="photo" accept="image/*">
+      </div>
+
+      <!-- Verifikasi 2 Langkah -->
+      <div class="form-group">
+        <label for="verify">Verifikasi 2 Langkah</label>
+        <input type="text" id="verify" placeholder='Ketik "Owner ganteng"' required autocomplete="off">
+        <p class="notice-verify">*Wajib ketik persis: <strong>Owner ganteng</strong></p>
+      </div>
+
+      <button type="submit" class="btn-submit">Lihat Role Saya</button>
+    </form>
+
+    <!-- Loading -->
+    <div id="loadingBox" class="loading">
+      <div class="spinner"></div>
+      <p style="font-size: 0.85rem; color: #94a3b8;">Menganalisis kadar kewarasan...</p>
+    </div>
+
+    <!-- Output Hasil -->
+    <div id="resultBox" class="result-box">
+      <img id="resPhoto" class="profile-preview" src="https://via.placeholder.com/90/334155/f8fafc?text=User" alt="Foto">
+      <div id="resName" class="result-name">Nama Kamu</div>
+      <span id="resJabatan" class="result-jabatan">Member</span>
+      
+      <div class="role-title">Role Sejati Kamu:</div>
+      <div id="resRole" class="result-role">Koruptor</div>
+
+      <br>
+      <button type="button" class="btn-reset" onclick="resetForm()">Coba Lagi</button>
+    </div>
+
+    <!-- Disclaimer Troll -->
+    <div class="disclaimer">
+      ⚠️ <strong>PERINGATAN:</strong> Website ini hanya lelucon/troll komunitas semata dan tidak dimaksudkan secara serius. Data Anda tidak disimpan ke server mana pun (berjalan 100% lokal di browser).
+    </div>
+  </div>
+
+  <script>
+    // Pool Role bawaan
+    const baseRoles = [
+      "Koruptor",
+      "Pedo",
+      "Jomok",
+      "Rasis",
+      "Gay",
+      "Hitam",
+      "Pendukung Prabowo",
+      "Antek antek prabowo",
+      "Admin berpendidikan",
+      "Gooner berpengalaman",
+      "Bandar bokep",
+      "Gooner",
+      "Member jelatah",
+      "Penguasa sebenarnya",
+      "Budak owner",
+      "Budak Prabowo",
+      "Budak komdigi",
+      "Budak bahlil",
+      "Pasangan Teddy",
+      "Gembel",
+      "Artist terkenal",
+      "Member abadi",
+      "Tukang rasis",
+      "PKI",
+      "Keturunan PKI",
+      "Hama",
+      "Operator sound horeg",
+      "Panitia sound horeg",
+      "Pejabat bersih",
+      "Termul",
+      "Pendukung Anies",
+      "Ternak Anies"
+    ];
+
+    const form = document.getElementById('quizForm');
+    const verifyInput = document.getElementById('verify');
+    const loadingBox = document.getElementById('loadingBox');
+    const resultBox = document.getElementById('resultBox');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const verificationText = verifyInput.value.trim();
+
+      // Pengecekan Verifikasi 2 Langkah
+      if (verificationText !== "Owner ganteng") {
+        alert("VERIFIKASI GAGAL!\nKamu harus mengetik persis 'Owner ganteng' untuk melanjutkan.");
+        verifyInput.focus();
+        return;
+      }
+
+      const name = document.getElementById('username').value.trim();
+      const jabatan = document.getElementById('jabatan').value;
+      const photoInput = document.getElementById('photo');
+
+      // Tentukan role list dinamis (menyesuaikan Admin plenger / Member plenger)
+      let currentRoles = [...baseRoles];
+      if (jabatan === "Admin") {
+        currentRoles.push("Admin plenger");
+      } else {
+        currentRoles.push("Member plenger");
+      }
+
+      // Pilih role acak
+      const randomRole = currentRoles[Math.floor(Math.random() * currentRoles.length)];
+
+      // Sembunyikan form & tampilkan loading
+      form.style.display = 'none';
+      loadingBox.style.display = 'block';
+
+      setTimeout(() => {
+        loadingBox.style.display = 'none';
+        
+        // Pasang hasil
+        document.getElementById('resName').textContent = name;
+        document.getElementById('resJabatan').textContent = jabatan;
+        document.getElementById('resRole').textContent = randomRole;
+
+        // Baca foto jika ada
+        if (photoInput.files && photoInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            document.getElementById('resPhoto').src = event.target.result;
+          };
+          reader.readAsDataURL(photoInput.files[0]);
+        } else {
+          document.getElementById('resPhoto').src = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(name);
+        }
+
+        resultBox.style.display = 'block';
+      }, 1200); // jeda 1.2 detik
+    });
+
+    function resetForm() {
+      resultBox.style.display = 'none';
+      form.reset();
+      form.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
