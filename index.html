@@ -1,791 +1,359 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tes Role Komunitas Gak Waras</title>
-  <style>
-    :root {
-      --bg-color: #080d1a;
-      --card-bg: rgba(21, 30, 46, 0.95);
-      --accent: #ef4444;
-      --accent-glow: rgba(239, 68, 68, 0.45);
-      --accent-hover: #dc2626;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #243247;
-      --gold: #fbbf24;
-      --cyan: #38bdf8;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background: radial-gradient(circle at top center, #1e1b4b, var(--bg-color) 70%);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 24px 12px;
-    }
-
-    .container {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      width: 100%;
-      max-width: 520px;
-      padding: 28px 22px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.15);
-      backdrop-filter: blur(8px);
-      animation: containerAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes containerAppear {
-      from { opacity: 0; transform: translateY(20px) scale(0.98); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    h1 {
-      font-size: 1.55rem;
-      text-align: center;
-      margin-bottom: 6px;
-      background: linear-gradient(135deg, #f87171, #f43f5e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 900;
-    }
-
-    p.subtitle {
-      text-align: center;
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: var(--cyan);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
-      margin-bottom: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #cbd5e1;
-    }
-
-    input[type="text"], select, input[type="file"] {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background-color: #0b0f19;
-      color: #fff;
-      font-size: 0.92rem;
-      outline: none;
-      transition: all 0.25s ease;
-    }
-
-    input[type="text"]:focus, select:focus {
-      border-color: #f87171;
-      box-shadow: 0 0 10px rgba(248, 113, 113, 0.25);
-    }
-
-    /* Quiz Card & Options */
-    .quiz-card {
-      background: #0b0f19;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
-      transition: border-color 0.2s;
-    }
-
-    .quiz-card:hover {
-      border-color: #334155;
-    }
-
-    .quiz-card p.q-text {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #f1f5f9;
-      margin-bottom: 10px;
-    }
-
-    .radio-label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.82rem;
-      color: #94a3b8;
-      background: #151e2e;
-      border: 1px solid transparent;
-      padding: 10px 12px;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .radio-label:hover {
-      background: #1e293b;
-      color: #fff;
-      transform: translateX(3px);
-    }
-
-    .radio-label input[type="radio"] {
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .radio-label:has(input[type="radio"]:checked) {
-      border-color: #f87171;
-      background: rgba(239, 68, 68, 0.12);
-      color: #fff;
-      font-weight: 600;
-      transform: scale(1.01);
-      box-shadow: 0 0 8px rgba(239, 68, 68, 0.15);
-    }
-
-    .notice-verify {
-      font-size: 0.76rem;
-      color: var(--gold);
-      margin-top: 5px;
-    }
-
-    button.btn-submit {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 12px;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 15px var(--accent-glow);
-    }
-
-    button.btn-submit:hover {
-      background: linear-gradient(135deg, #f87171, #ef4444);
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
-      transform: translateY(-1px);
-    }
-
-    button.btn-submit:active {
-      transform: translateY(1px);
-    }
-
-    /* Loading Spinner */
-    .loading {
-      display: none;
-      text-align: center;
-      margin-top: 24px;
-      padding: 20px;
-    }
-
-    .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid #1e293b;
-      border-top-color: #ef4444;
-      border-right-color: #f59e0b;
-      border-radius: 50%;
-      animation: spin 0.75s linear infinite;
-      margin: 0 auto 14px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Result Box */
-    .result-box {
-      display: none;
-      background: #0b0f19;
-      border: 1px solid rgba(248, 113, 113, 0.3);
-      border-radius: 16px;
-      padding: 24px 18px;
-      text-align: center;
-      margin-top: 20px;
-      animation: popIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.92); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .profile-preview {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #f87171;
-      margin-bottom: 12px;
-      box-shadow: 0 0 15px rgba(248, 113, 113, 0.35);
-    }
-
-    .result-name {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .result-jabatan {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      background: #334155;
-      padding: 3px 12px;
-      border-radius: 999px;
-      color: #cbd5e1;
-      margin-top: 5px;
-    }
-
-    /* Chart Layout */
-    .chart-container {
-      margin-top: 24px;
-      text-align: left;
-    }
-
-    .chart-title {
-      font-size: 0.88rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 14px;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-
-    .bar-item {
-      margin-bottom: 14px;
-    }
-
-    .bar-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.83rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .bar-role-name {
-      color: #f1f5f9;
-    }
-
-    .bar-role-pct {
-      color: var(--gold);
-      font-weight: 700;
-    }
-
-    .bar-track {
-      background: #1e293b;
-      height: 14px;
-      border-radius: 999px;
-      overflow: hidden;
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: 999px;
-      width: 0%;
-      background: linear-gradient(90deg, #ef4444, #f59e0b);
-      transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .bar-fill.top-rank {
-      background: linear-gradient(90deg, #f59e0b, #eab308);
-      box-shadow: 0 0 12px rgba(234, 179, 8, 0.5);
-    }
-
-    .btn-reset {
-      margin-top: 22px;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 9px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-
-    .btn-reset:hover {
-      background: #1e293b;
-      color: #fff;
-      border-color: #475569;
-    }
-
-    /* Disclaimer */
-    .disclaimer {
-      margin-top: 24px;
-      padding: 12px;
-      background: rgba(239, 68, 68, 0.08);
-      border-left: 4px solid var(--accent);
-      border-radius: 6px;
-      font-size: 0.72rem;
-      color: #94a3b8;
-      line-height: 1.45;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Analisis Fisik dan Ulang Tahun Karakter</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --hover-color: #f1f2f6;
+            --border-color: #dfe4ea;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .table-container {
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--primary-color);
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            white-space: nowrap;
+        }
+        th:hover {
+            background-color: #34495e;
+        }
+        th::after {
+            content: '\21C5'; /* Up down arrow */
+            position: absolute;
+            right: 8px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        th.th-sort-asc::after {
+            content: '\25B2'; /* Up arrow */
+            color: #fff;
+        }
+        th.th-sort-desc::after {
+            content: '\25BC'; /* Down arrow */
+            color: #fff;
+        }
+        tr:hover {
+            background-color: var(--hover-color);
+        }
+        small {
+            color: #7f8c8d;
+            font-size: 0.85em;
+            display: block;
+            margin-top: 4px;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Tes Role Komunitas</h1>
-    <p class="subtitle">Penilaian Role & Jabatan di Komunitas Gak Waras Selamanya</p>
+    <h2>Tabel Analisis Fisik dan Ulang Tahun Karakter</h2>
+    
+    <div class="table-container">
+        <table id="characterTable">
+            <thead>
+                <tr>
+                    <th data-type="number">No</th>
+                    <th data-type="string">Nama Karakter</th>
+                    <th data-type="number">Tinggi Badan (cm)</th>
+                    <th data-type="number">Berat Badan (kg)</th>
+                    <th data-type="string">BWH (Bust-Waist-Hips)</th>
+                    <th data-type="string">Tanggal Lahir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data starts here -->
 
-    <form id="quizForm">
-      
-      <div class="section-title">👤 1. Data Anggota</div>
-      
-      <div class="form-group">
-        <label for="username">Nama Kalian</label>
-        <input type="text" id="username" placeholder="Masukkan nama panggilan / asli kalian..." required autocomplete="off">
-      </div>
-
-      <div class="form-group">
-        <label for="jabatan">Jabatan di Komunitas</label>
-        <select id="jabatan">
-          <option value="Member">Member</option>
-          <option value="Admin">Admin</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="photo">Upload Foto Profil (Opsional)</label>
-        <input type="file" id="photo" accept="image/*">
-      </div>
-
-      <div class="section-title" style="margin-top: 24px;">🧠 2. Pertanyaan Karakter & Kewarasan</div>
-
-      <!-- Pertanyaan Baru: Pekerjaan -->
-      <div class="quiz-card">
-        <p class="q-text">1. Apa pekerjaan utama kalian saat ini?</p>
-        <label class="radio-label">
-          <input type="radio" name="job" value="A" required> A. Nganggur
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="job" value="B"> B. Freelance
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="job" value="C"> C. Bekerja sebagai WNI
-        </label>
-      </div>
-
-      <!-- Q2: Lama Bergabung -->
-      <div class="quiz-card">
-        <p class="q-text">2. Sudah berapa lama kalian bergabung?</p>
-        <label class="radio-label">
-          <input type="radio" name="q1" value="A" required> A. Barusan
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q1" value="B"> B. Beberapa bulan
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q1" value="C"> C. Udah lama
-        </label>
-      </div>
-
-      <!-- Q3: Nimbrung -->
-      <div class="quiz-card">
-        <p class="q-text">3. Seberapa sering kalian nimbrung?</p>
-        <label class="radio-label">
-          <input type="radio" name="q2" value="A" required> A. Sering
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q2" value="B"> B. Jarang
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q2" value="C"> C. Cuma nyari bokep
-        </label>
-      </div>
-
-      <!-- Q4: Gooning -->
-      <div class="quiz-card">
-        <p class="q-text">4. Seberapa gooning kalian?</p>
-        <label class="radio-label">
-          <input type="radio" name="q3" value="A" required> A. Sangat gooning
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q3" value="B"> B. Gooning expert
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q3" value="C"> C. Gooning berpengalaman
-        </label>
-      </div>
-
-      <!-- Q5: Rasis -->
-      <div class="quiz-card">
-        <p class="q-text">5. Seberapa rasis kalian?</p>
-        <label class="radio-label">
-          <input type="radio" name="q4" value="A" required> A. Saya sangat rasis
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q4" value="B"> B. Kadang rasis kadang gak
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q4" value="C"> C. Gak rasis cuman ngejek orang doang yang beda suku
-        </label>
-      </div>
-
-      <!-- Q6: Politik -->
-      <div class="quiz-card">
-        <p class="q-text">6. Pendukung Prabowo?</p>
-        <label class="radio-label">
-          <input type="radio" name="q5" value="A" required> A. Iya dong
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q5" value="B"> B. Ya ya ya
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q5" value="C"> C. Skip saya masih normal, mending dukung Anies
-        </label>
-      </div>
-
-      <!-- Q7: Sound Horeg -->
-      <div class="quiz-card">
-        <p class="q-text">7. Tanggapan tentang Sound Horeg keliling kampung?</p>
-        <label class="radio-label">
-          <input type="radio" name="q6" value="A" required> A. Getarkan genteng dan kaca warga sampai ambyar!
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q6" value="B"> B. Goyang tipis-tipis bareng kawan
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q6" value="C"> C. Sakit kuping, mengganggu ketertiban
-        </label>
-      </div>
-
-      <!-- Q8: Kegiatan Malam -->
-      <div class="quiz-card">
-        <p class="q-text">8. Kegiatan utama saat tengah malam?</p>
-        <label class="radio-label">
-          <input type="radio" name="q7" value="A" required> A. Overthinking sambil scroll meme gak jelas
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q7" value="B"> B. Jadi budak komdigi & penjaga server
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="q7" value="C"> C. Nyusun rencana konspirasi kudeta admin
-        </label>
-      </div>
-
-      <div class="section-title" style="margin-top: 24px;">🔐 3. Verifikasi Keamanan</div>
-
-      <!-- Verifikasi 2 Langkah -->
-      <div class="form-group">
-        <label for="verify">Verifikasi 2 Langkah</label>
-        <input type="text" id="verify" placeholder='Ketik "Owner ganteng"' required autocomplete="off">
-        <p class="notice-verify">*Wajib ketik persis: <strong>Owner ganteng</strong></p>
-      </div>
-
-      <button type="submit" class="btn-submit">⚡ Analisis Role & Jabatan</button>
-    </form>
-
-    <!-- Loading -->
-    <div id="loadingBox" class="loading">
-      <div class="spinner"></div>
-      <p id="loadingStatus" style="font-size: 0.85rem; color: #94a3b8;">Melacak jejak digital...</p>
+                <tr>
+                    <td data-sort="1" class="text-center">1</td>
+                    <td data-sort="Frederica Bernkastel">Frederica Bernkastel</td>
+                    <td data-sort="160">~160 cm<br><small>(Est)</small></td>
+                    <td data-sort="47">~47 kg<br><small>(Est)</small></td>
+                    <td data-sort="73-52-72">73-52-72<br><small>(Tipe Mungil)</small></td>
+                    <td data-sort="08-21">21 Agustus<br><small>(Perayaan non-resmi Rika)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="2" class="text-center">2</td>
+                    <td data-sort="Enma Ai">Enma Ai</td>
+                    <td data-sort="158">158 cm</td>
+                    <td data-sort="45">~45 kg<br><small>(Est)</small></td>
+                    <td data-sort="70-56-82">70-56-82<br><small>(Tipe Mungil)</small></td>
+                    <td data-sort="11-16">16 November<br><small>(Estimasi Tema/Fandom)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="3" class="text-center">3</td>
+                    <td data-sort="Lambdadelta">Lambdadelta</td>
+                    <td data-sort="165">~165 cm<br><small>(Est)</small></td>
+                    <td data-sort="55">~55 kg<br><small>(Est)</small></td>
+                    <td data-sort="79-53-74">79-53-74<br><small>(Tipe Mungil)</small></td>
+                    <td data-sort="06-20">20 Juni</td>
+                </tr>
+                <tr>
+                    <td data-sort="4" class="text-center">4</td>
+                    <td data-sort="Homura Akemi">Homura Akemi</td>
+                    <td data-sort="159">~159 cm<br><small>(Dikoreksi dari 1659 cm)</small></td>
+                    <td data-sort="46">~46 kg<br><small>(Est)</small></td>
+                    <td data-sort="78-56-80">78-56-80<br><small>(Tipe Sedang/Atletis)</small></td>
+                    <td data-sort="09-29">29 September<br><small>(Estimasi/Manga Rilis)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="5" class="text-center">5</td>
+                    <td data-sort="Emilie">Emilie</td>
+                    <td data-sort="165">~165 cm<br><small>(Model Sedang)</small></td>
+                    <td data-sort="52">~52 kg<br><small>(Est)</small></td>
+                    <td data-sort="90-60-88">90-60-88<br><small>(Tipe Berisi)</small></td>
+                    <td data-sort="09-22">22 September</td>
+                </tr>
+                <tr>
+                    <td data-sort="6" class="text-center">6</td>
+                    <td data-sort="Yukina Minato">Yukina Minato</td>
+                    <td data-sort="155">155 cm</td>
+                    <td data-sort="45">~45 kg<br><small>(Est)</small></td>
+                    <td data-sort="75-50-81">75-50-81<br><small>(Tipe Ramping)</small></td>
+                    <td data-sort="10-26">26 Oktober</td>
+                </tr>
+                <tr>
+                    <td data-sort="7" class="text-center">7</td>
+                    <td data-sort="Imai Lisa">Imai Lisa</td>
+                    <td data-sort="158">158 cm</td>
+                    <td data-sort="50">~50 kg<br><small>(Est)</small></td>
+                    <td data-sort="85-58-85">85-58-85<br><small>(Tipe Sedang/Curvy)</small></td>
+                    <td data-sort="08-25">25 Agustus</td>
+                </tr>
+                <tr>
+                    <td data-sort="8" class="text-center">8</td>
+                    <td data-sort="Ako Udagawa">Ako Udagawa</td>
+                    <td data-sort="148">148 cm</td>
+                    <td data-sort="40">~40 kg<br><small>(Est)</small></td>
+                    <td data-sort="75-55-78">75-55-78<br><small>(Tipe Mungil)</small></td>
+                    <td data-sort="07-03">3 Juli</td>
+                </tr>
+                <tr>
+                    <td data-sort="9" class="text-center">9</td>
+                    <td data-sort="Rinko Shirokane">Rinko Shirokane</td>
+                    <td data-sort="157">157 cm</td>
+                    <td data-sort="48">~48 kg<br><small>(Est)</small></td>
+                    <td data-sort="88-56-87">88-56-87<br><small>(Tipe Sedang/Busty)</small></td>
+                    <td data-sort="10-17">17 Oktober</td>
+                </tr>
+                <tr>
+                    <td data-sort="10" class="text-center">10</td>
+                    <td data-sort="Columbina">Columbina</td>
+                    <td data-sort="155">~155 cm<br><small>(Model Sedang)</small></td>
+                    <td data-sort="45">~45 kg<br><small>(Est)</small></td>
+                    <td data-sort="81-57-82">81-57-82<br><small>(Tipe Sedang/Tertutup)</small></td>
+                    <td data-sort="01-14">14 Januari<br><small>(Dikonfirmasi di Wiki/Lore)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="11" class="text-center">11</td>
+                    <td data-sort="Ronova (Genshin Lore/Villain)">Ronova (Genshin Lore/Villain)</td>
+                    <td data-sort="172">~172 cm<br><small>(Model Tinggi)</small></td>
+                    <td data-sort="56">~56 kg<br><small>(Est)</small></td>
+                    <td data-sort="92-55-92">92-55-92<br><small>(Tipe Dewasa Tinggi)</small></td>
+                    <td data-sort="11-01">1 November<br><small>(Est. Tema: Penguasa Kematian)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="12" class="text-center">12</td>
+                    <td data-sort="Chiori">Chiori</td>
+                    <td data-sort="155">~155 cm<br><small>(Model Pendek)</small></td>
+                    <td data-sort="44">~44 kg<br><small>(Est)</small></td>
+                    <td data-sort="77-56-80">77-56-80<br><small>(Tipe Ramping)</small></td>
+                    <td data-sort="03-13">13 Maret</td>
+                </tr>
+                <tr>
+                    <td data-sort="13" class="text-center">13</td>
+                    <td data-sort="Navia">Navia</td>
+                    <td data-sort="170">~170 cm<br><small>(Model Tinggi)</small></td>
+                    <td data-sort="55">~55 kg<br><small>(Est)</small></td>
+                    <td data-sort="89-61-92">89-61-92<br><small>(Tipe Tinggi/Curvy)</small></td>
+                    <td data-sort="08-16">16 Agustus</td>
+                </tr>
+                <tr>
+                    <td data-sort="14" class="text-center">14</td>
+                    <td data-sort="Hina Hikawa">Hina Hikawa</td>
+                    <td data-sort="156">156 cm</td>
+                    <td data-sort="45">~45 kg<br><small>(Est)</small></td>
+                    <td data-sort="80-57-83">80-57-83<br><small>(Tipe Ramping)</small></td>
+                    <td data-sort="03-20">20 Maret</td>
+                </tr>
+                <tr>
+                    <td data-sort="15" class="text-center">15</td>
+                    <td data-sort="Sakuya Izayoi">Sakuya Izayoi</td>
+                    <td data-sort="159">~159 cm</td>
+                    <td data-sort="48">~48 kg<br><small>(Est)</small></td>
+                    <td data-sort="88-58-85">88-58-85<br><small>(Tipe Dewasa Sedang)</small></td>
+                    <td data-sort="03-09">9 Maret<br><small>(Dirayakan sbg Sakuya Day)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="16" class="text-center">16</td>
+                    <td data-sort="Rui Yashio">Rui Yashio</td>
+                    <td data-sort="169">169 cm</td>
+                    <td data-sort="53">~53 kg<br><small>(Est)</small></td>
+                    <td data-sort="83-59-86">83-59-86<br><small>(Tipe Tinggi/Ramping)</small></td>
+                    <td data-sort="11-19">19 November</td>
+                </tr>
+                <tr>
+                    <td data-sort="17" class="text-center">17</td>
+                    <td data-sort="Takako Sugiura">Takako Sugiura</td>
+                    <td data-sort="165">~165 cm<br><small>(Est)</small></td>
+                    <td data-sort="50">~50 kg<br><small>(Est)</small></td>
+                    <td data-sort="84-59-85">84-59-85<br><small>(Tipe Tinggi Remaja)</small></td>
+                    <td data-sort="10-07">7 Oktober 1983</td>
+                </tr>
+                <tr>
+                    <td data-sort="18" class="text-center">18</td>
+                    <td data-sort="Mei Misaki">Mei Misaki</td>
+                    <td data-sort="152">152 cm</td>
+                    <td data-sort="45">~45 kg<br><small>(Resmi)</small></td>
+                    <td data-sort="75-55-78">75-55-78<br><small>(Tipe Ramping/Petite)</small></td>
+                    <td data-sort="04-04">4 April 1983</td>
+                </tr>
+                <tr>
+                    <td data-sort="19" class="text-center">19</td>
+                    <td data-sort="Letana Andreanov / Lenya">Letana Andreanov / Lenya</td>
+                    <td data-sort="171">171 cm/155 cm</td>
+                    <td data-sort="48">48 kg/42 kg<br><small>(Resmi)</small></td>
+                    <td data-sort="83-58-89">83-58-89</td>
+                    <td data-sort="03-06">6 Maret</td>
+                </tr>
+                <tr>
+                    <td data-sort="20" class="text-center">20</td>
+                    <td data-sort="Iroha Sakayori">Iroha Sakayori</td>
+                    <td data-sort="158">~158 cm<br><small>(Est)</small></td>
+                    <td data-sort="46">~46 kg<br><small>(Est)</small></td>
+                    <td data-sort="82-57-83">82-57-83<br><small>(Tipe Sedang)</small></td>
+                    <td data-sort="05-11">11 Mei</td>
+                </tr>
+                <tr>
+                    <td data-sort="21" class="text-center">21</td>
+                    <td data-sort="Satou Matsuzaka">Satou Matsuzaka</td>
+                    <td data-sort="161">161 cm</td>
+                    <td data-sort="49">~49 kg<br><small>(Est)</small></td>
+                    <td data-sort="85-58-86">85-58-86<br><small>(Tipe Proporsional)</small></td>
+                    <td data-sort="12-31">31 Desember</td>
+                </tr>
+                <tr>
+                    <td data-sort="22" class="text-center">22</td>
+                    <td data-sort="Sayo Hikawa">Sayo Hikawa</td>
+                    <td data-sort="161">161 cm</td>
+                    <td data-sort="48">~48 kg<br><small>(Est)</small></td>
+                    <td data-sort="83-58-84">83-58-84<br><small>(Tipe Proporsional)</small></td>
+                    <td data-sort="03-20">20 Maret</td>
+                </tr>
+                <tr>
+                    <td data-sort="23" class="text-center">23</td>
+                    <td data-sort="Madoka Kaname">Madoka Kaname</td>
+                    <td data-sort="152">152 cm</td>
+                    <td data-sort="43">~43 kg<br><small>(Est)</small></td>
+                    <td data-sort="76-56-79">76-56-79<br><small>(Tipe Sedang/Petite)</small></td>
+                    <td data-sort="10-03">3 Oktober</td>
+                </tr>
+                <tr>
+                    <td data-sort="24" class="text-center">24</td>
+                    <td data-sort="Koto Satsuki">Koto Satsuki</td>
+                    <td data-sort="165">165 cm</td>
+                    <td data-sort="51">~51 kg<br><small>(Est)</small></td>
+                    <td data-sort="80-49-87">80-49-87<br><small>(Tipe Ramping)</small></td>
+                    <td data-sort="07-26">26 Juli</td>
+                </tr>
+                <tr>
+                    <td data-sort="25" class="text-center">25</td>
+                    <td data-sort="Hinako Yaotose">Hinako Yaotose</td>
+                    <td data-sort="159">159 cm</td>
+                    <td data-sort="47">~47 kg<br><small>(Est)</small></td>
+                    <td data-sort="80-56-82">80-56-82<br><small>(Tipe Sedang)</small></td>
+                    <td data-sort="07-02">2 Juli<br><small>(Usia canonical 16 tahun)</small></td>
+                </tr>
+                <tr>
+                    <td data-sort="26" class="text-center">26</td>
+                    <td data-sort="Miko Yashiro">Miko Yashiro</td>
+                    <td data-sort="156">156 cm</td>
+                    <td data-sort="46">~46 kg<br><small>(Est)</small></td>
+                    <td data-sort="84-57-85">84-57-85<br><small>(Tipe Sedang)</small></td>
+                    <td data-sort="10-22">22 Oktober</td>
+                </tr>
+                <tr>
+                    <td data-sort="27" class="text-center">27</td>
+                    <td data-sort="Miko Yotsuya (Lore)">Miko Yotsuya (Lore)</td>
+                    <td data-sort="160">160 cm</td>
+                    <td data-sort="48">~48 kg<br><small>(Est)</small></td>
+                    <td data-sort="86-59-87">86-59-87<br><small>(Tipe Sedang/Curvy)</small></td>
+                    <td data-sort="10-17">17 Oktober</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <!-- Output Hasil -->
-    <div id="resultBox" class="result-box">
-      <img id="resPhoto" class="profile-preview" src="" alt="Foto">
-      <div id="resName" class="result-name">Nama Kalian</div>
-      <span id="resJabatan" class="result-jabatan">Member</span>
-
-      <!-- Grafik Bar -->
-      <div class="chart-container">
-        <div class="chart-title">📊 Grafik Kecocokan Role Sejati</div>
-        <div id="barsWrapper"></div>
-      </div>
-
-      <button type="button" class="btn-reset" onclick="resetForm()">🔄 Coba Ulangi</button>
-    </div>
-
-    <!-- Disclaimer Troll -->
-    <div class="disclaimer">
-      ⚠️ <strong>PERINGATAN:</strong> Website ini hanya lelucon / troll komunitas semata dan tidak dianggap serius. Data kalian tidak dikirim ke server mana pun (berjalan 100% lokal di browser).
-    </div>
-  </div>
-
-  <script>
-    // Pool Role Umum (Penguasa sebenarnya sengaja dikunci & tidak ada di daftar publik)
-    const baseRolesPool = [
-      "Koruptor", "Pedo", "Pedo sialan", "Jomok", "Rasis", "Gay", "Hitam",
-      "Pendukung Prabowo", "Antek antek prabowo", "Admin berpendidikan",
-      "Gooner berpengalaman", "Bandar bokep", "Gooner", "Member jelatah",
-      "Budak owner", "Budak Prabowo", "Budak komdigi", "Budak bahlil",
-      "Pasangan Teddy", "Gembel", "Artist terkenal", "Member abadi",
-      "Tukang rasis", "PKI", "Keturunan PKI", "Hama", "Operator sound horeg",
-      "Panitia sound horeg", "Pejabat bersih", "Termul", "Pendukung Anies",
-      "Ternak Anies", "Natuna", "Gooning on Horse"
-    ];
-
-    const form = document.getElementById('quizForm');
-    const verifyInput = document.getElementById('verify');
-    const loadingBox = document.getElementById('loadingBox');
-    const loadingStatus = document.getElementById('loadingStatus');
-    const resultBox = document.getElementById('resultBox');
-    const barsWrapper = document.getElementById('barsWrapper');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      // Pengecekan Verifikasi 2 Langkah
-      if (verifyInput.value.trim() !== "Owner ganteng") {
-        alert("VERIFIKASI GAGAL!\nKalian wajib mengetik persis 'Owner ganteng' untuk melanjutkan.");
-        verifyInput.focus();
-        return;
-      }
-
-      const rawName = document.getElementById('username').value.trim();
-      const cleanName = rawName.toLowerCase();
-      const jabatan = document.getElementById('jabatan').value;
-      const photoInput = document.getElementById('photo');
-
-      // Ambil seluruh jawaban kuis
-      const job = document.querySelector('input[name="job"]:checked').value;
-      const q1 = document.querySelector('input[name="q1"]:checked').value;
-      const q2 = document.querySelector('input[name="q2"]:checked').value;
-      const q3 = document.querySelector('input[name="q3"]:checked').value;
-      const q4 = document.querySelector('input[name="q4"]:checked').value;
-      const q5 = document.querySelector('input[name="q5"]:checked').value;
-      const q6 = document.querySelector('input[name="q6"]:checked').value;
-      const q7 = document.querySelector('input[name="q7"]:checked').value;
-
-      // ==========================================
-      // TARGET ALGORITMA & EASTER EGGS
-      // ==========================================
-      const isOwner = cleanName.includes("zhee") || cleanName.includes("zainal");
-      const isKeinan = cleanName.includes("keinan");
-      const isPedoTarget = cleanName.includes("putra") || cleanName.includes("ayn") || cleanName.includes("ayano");
-      const isAbadiTarget = cleanName.includes("nurman") || cleanName.includes("grand");
-
-      let finalTop5 = [];
-
-      if (isOwner) {
-        // Zhee / Zainal -> Mutlak Penguasa Sebenarnya (#1)
-        finalTop5 = [
-          { role: "Penguasa sebenarnya", pct: 99 },
-          { role: "Admin berpendidikan", pct: 88 },
-          { role: "Artist terkenal", pct: 76 },
-          { role: "Pejabat bersih", pct: 64 },
-          { role: "Member abadi", pct: 52 }
-        ];
-      } else if (isKeinan) {
-        // Keinan -> Urutan paten troll
-        finalTop5 = [
-          { role: "Rasis", pct: 97 },
-          { role: "Pendukung Prabowo", pct: 89 },
-          { role: "Natuna", pct: 78 },
-          { role: "Koruptor", pct: 66 },
-          { role: "Gooning on Horse", pct: 54 }
-        ];
-      } else {
-        // Algoritma Dinamis & Super Acak untuk lainnya
-        // PENGUASA SEBENARNYA DIKUNCI / TIDAK PERNAH BISA DIDAPATKAN OLEH SELAIN OWNER
-        const plengerRole = (jabatan === "Admin") ? "Admin plenger" : "Member plenger";
-        
-        let pool = [...baseRolesPool, plengerRole];
-        let scores = {};
-
-        // Berikan entropi / keacakan awal tinggi (10 s.d 40 poin)
-        pool.forEach(r => {
-          scores[r] = Math.floor(Math.random() * 30) + 10;
+    <script>
+        document.querySelectorAll('th').forEach(headerCell => {
+            headerCell.addEventListener('click', () => {
+                const tableElement = headerCell.closest('table');
+                const tbody = tableElement.querySelector('tbody');
+                const index = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+                const currentIsAscending = headerCell.classList.contains('th-sort-asc');
+                
+                // Remove sort classes from all headers
+                tableElement.querySelectorAll('th').forEach(th => th.classList.remove('th-sort-asc', 'th-sort-desc'));
+                
+                // Add the correct sort class to the clicked header
+                const newDirection = currentIsAscending ? 'th-sort-desc' : 'th-sort-asc';
+                headerCell.classList.add(newDirection);
+                
+                const rows = Array.from(tbody.querySelectorAll('tr'));
+                
+                const sortFn = (a, b) => {
+                    const aCell = a.cells[index];
+                    const bCell = b.cells[index];
+                    
+                    const aSort = aCell.getAttribute('data-sort');
+                    const bSort = bCell.getAttribute('data-sort');
+                    
+                    const type = headerCell.getAttribute('data-type');
+                    
+                    if (type === 'number') {
+                        return currentIsAscending ? bSort - aSort : aSort - bSort;
+                    } else {
+                        return currentIsAscending ? bSort.localeCompare(aSort) : aSort.localeCompare(bSort);
+                    }
+                };
+                
+                rows.sort(sortFn);
+                tbody.append(...rows);
+            });
         });
-
-        // 1. Bobot Pekerjaan
-        if (job === "A") { scores["Gembel"] += 35; scores["Hama"] += 25; scores["Member jelatah"] += 20; }
-        if (job === "B") { scores["Gooner berpengalaman"] += 30; scores["Bandar bokep"] += 25; scores["Artist terkenal"] += 20; }
-        if (job === "C") { scores["Pejabat bersih"] += 30; scores["Koruptor"] += 25; scores["Budak komdigi"] += 20; }
-
-        // 2. Lama Bergabung
-        if (q1 === "A") { scores["Member jelatah"] += 25; scores["Termul"] += 25; }
-        if (q1 === "B") { scores[plengerRole] += 25; scores["Budak owner"] += 20; }
-        if (q1 === "C") { scores["Member abadi"] += 35; scores["Koruptor"] += 20; }
-
-        // 3. Nimbrung
-        if (q2 === "A") { scores["Artist terkenal"] += 25; scores["Budak owner"] += 20; }
-        if (q2 === "B") { scores["Hama"] += 25; scores["Gembel"] += 20; }
-        if (q2 === "C") { scores["Bandar bokep"] += 40; scores["Gooner"] += 30; scores["Gooner berpengalaman"] += 25; }
-
-        // 4. Gooning
-        if (q3 === "A") { scores["Gooner"] += 35; scores["Pedo"] += 20; scores["Jomok"] += 20; }
-        if (q3 === "B") { scores["Gooner berpengalaman"] += 35; scores["Gooning on Horse"] += 25; }
-        if (q3 === "C") { scores["Gooner berpengalaman"] += 25; scores["Gay"] += 20; }
-
-        // 5. Rasis
-        if (q4 === "A") { scores["Rasis"] += 45; scores["Tukang rasis"] += 40; scores["Hitam"] += 30; }
-        if (q4 === "B") { scores["Termul"] += 25; scores["Pejabat bersih"] += 20; }
-        if (q4 === "C") { scores["Tukang rasis"] += 35; scores["PKI"] += 25; scores["Keturunan PKI"] += 20; }
-
-        // 6. Politik
-        if (q5 === "A") { scores["Pendukung Prabowo"] += 45; scores["Antek antek prabowo"] += 40; scores["Budak Prabowo"] += 35; }
-        if (q5 === "B") { scores["Budak bahlil"] += 30; scores["Pasangan Teddy"] += 25; scores["Budak komdigi"] += 25; }
-        if (q5 === "C") { scores["Pendukung Anies"] += 45; scores["Ternak Anies"] += 40; }
-
-        // 7. Sound Horeg
-        if (q6 === "A") { scores["Operator sound horeg"] += 40; scores["Panitia sound horeg"] += 35; }
-        if (q6 === "B") { scores["Jomok"] += 25; scores["Gay"] += 20; }
-        if (q6 === "C") { scores["Pejabat bersih"] += 25; scores["Natuna"] += 20; }
-
-        // 8. Kegiatan Malam
-        if (q7 === "A") { scores["Hama"] += 25; scores["Gembel"] += 20; }
-        if (q7 === "B") { scores["Budak komdigi"] += 35; scores["Budak owner"] += 30; }
-        if (q7 === "C") { scores["PKI"] += 35; scores["Koruptor"] += 30; }
-
-        // Jabatan Booster
-        if (jabatan === "Admin") {
-          scores["Admin berpendidikan"] += 30;
-          scores[plengerRole] += 20;
-        }
-
-        // Urutkan kandidat role
-        let sorted = Object.keys(scores)
-          .map(r => ({ role: r, score: scores[r] }))
-          .sort((a, b) => b.score - a.score);
-
-        // Ambil 5 teratas
-        let picked = sorted.slice(0, 5).map(x => x.role);
-
-        // Target: Putra/Ayn/Ayano dijamin dapat "Pedo sialan"
-        if (isPedoTarget) {
-          if (!picked.includes("Pedo sialan")) {
-            // Selipkan di posisi acak (antara index 0 s/d 3)
-            const targetPos = Math.floor(Math.random() * 4);
-            picked.splice(targetPos, 0, "Pedo sialan");
-            picked.pop(); // buang nomor 6
-          }
-        }
-
-        // Target: Nurman/Grand dijamin dapat "Member abadi" (posisi acak tidak harus #1)
-        if (isAbadiTarget) {
-          if (!picked.includes("Member abadi")) {
-            const targetPos = Math.floor(Math.random() * 4) + 1; // index 1 s/d 4
-            picked.splice(targetPos, 0, "Member abadi");
-            picked.pop();
-          }
-        }
-
-        // Generate persentase dramatis dengan variasi acak
-        const topVal = Math.floor(Math.random() * 6) + 93; // 93% - 98%
-        finalTop5 = [
-          { role: picked[0], pct: topVal },
-          { role: picked[1], pct: Math.max(78, Math.round(topVal * 0.86 - Math.random() * 4)) },
-          { role: picked[2], pct: Math.max(62, Math.round(topVal * 0.70 - Math.random() * 4)) },
-          { role: picked[3], pct: Math.max(48, Math.round(topVal * 0.53 - Math.random() * 4)) },
-          { role: picked[4], pct: Math.max(35, Math.round(topVal * 0.38 - Math.random() * 4)) }
-        ];
-      }
-
-      // Animasi Loading Bertahap
-      form.style.display = 'none';
-      loadingBox.style.display = 'block';
-
-      const loadingMessages = [
-        "Melacak jejak digital di grup...",
-        "Menghitung skor degradasi moral...",
-        "Mencocokkan database orang bermasalah...",
-        "Menetapkan vonis akhir..."
-      ];
-      let msgIndex = 0;
-      const msgInterval = setInterval(() => {
-        msgIndex++;
-        if (msgIndex < loadingMessages.length) {
-          loadingStatus.textContent = loadingMessages[msgIndex];
-        }
-      }, 350);
-
-      setTimeout(() => {
-        clearInterval(msgInterval);
-        loadingBox.style.display = 'none';
-
-        // Set Info Pengguna
-        document.getElementById('resName').textContent = rawName;
-        document.getElementById('resJabatan').textContent = jabatan;
-
-        // Pasang Foto Profil
-        if (photoInput.files && photoInput.files[0]) {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            document.getElementById('resPhoto').src = event.target.result;
-          };
-          reader.readAsDataURL(photoInput.files[0]);
-        } else {
-          document.getElementById('resPhoto').src = "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(rawName);
-        }
-
-        // Render Grafik Bar Animasi
-        barsWrapper.innerHTML = '';
-        finalTop5.forEach((item, idx) => {
-          const isTop = idx === 0;
-          const crown = isTop ? '👑 ' : `#${idx + 1} `;
-
-          const barItem = document.createElement('div');
-          barItem.className = 'bar-item';
-          barItem.innerHTML = `
-            <div class="bar-header">
-              <span class="bar-role-name">${crown}${item.role}</span>
-              <span class="bar-role-pct">${item.pct}% Cocok</span>
-            </div>
-            <div class="bar-track">
-              <div class="bar-fill ${isTop ? 'top-rank' : ''}" id="barFill${idx}"></div>
-            </div>
-          `;
-          barsWrapper.appendChild(barItem);
-
-          // Animasi pergerakan bar
-          setTimeout(() => {
-            const fillEl = document.getElementById(`barFill${idx}`);
-            if (fillEl) fillEl.style.width = item.pct + '%';
-          }, 120 * (idx + 1));
-        });
-
-        resultBox.style.display = 'block';
-      }, 1500);
-    });
-
-    function resetForm() {
-      resultBox.style.display = 'none';
-      form.reset();
-      form.style.display = 'block';
-      loadingStatus.textContent = "Melacak jejak digital...";
-    }
-  </script>
+    </script>
 </body>
 </html>
+
